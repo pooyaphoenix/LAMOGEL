@@ -4,7 +4,7 @@ class Config():
     pre_training_curpus_path: str = 'ml/corpus/pre_training/'
 
     #split
-    split_range:int = 0.9         # 1 means all data to fine-tuning and 0 means all data to pre-training
+    split_range: int = 0.9         # 1 means all data to fine-tuning and 0 means all data to pre-training
     shuffle_status: bool = True   # shuffle returned fine-tuning and pre-training data
 
     #db
