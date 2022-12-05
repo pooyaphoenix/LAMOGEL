@@ -1,12 +1,13 @@
 from sqlmodel import create_engine, SQLModel
 from db.chat_session import ChatSession
 from urllib.parse import quote
+from config import Config
 
-user = 'pooya'
-password = 'kFBfBmBXRMBA'
-address = '172.21.30.21'
-port = '30799'
-db_name ='dev_data'
+user = Config.db['USER']
+password = Config.db['PASSWORD']
+address = Config.db['ADDRESS']
+port = Config.db['PORT']
+db_name = Config.db['DB_NAME']
 
 engine = create_engine(url=f"mysql://{user}:{password}@{address}:{port}/{db_name}".
                         format(user=user, 
