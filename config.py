@@ -30,6 +30,8 @@ class Config():
     mask_confidence: float = 0.15
     lr = 5e-5
     generated_model_path: str = "ml/models/"
+    generated_model_name: str = "azki"
+    generated_model_format: str = ".pt"
 
 
     #database

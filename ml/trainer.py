@@ -5,6 +5,7 @@ from config import Config
 from kernel.color import color
 from tqdm import tqdm 
 from transformers import AdamW
+import time
 
 
 class CustomDataset(torch.utils.data.Dataset):
@@ -52,7 +53,6 @@ class MlmTrainer():
 
         return inputs
 
-
     def trainer(self, device, data_loader):
         print(color.BOLD + color.BLUE + 'Trainer started ...'+ color.END)
         optim = AdamW(self.model.parameters(), 
@@ -94,7 +94,12 @@ class MlmTrainer():
         # activate training mode
         self.model.train()
         self.trainer(device, data_loader)
-        torch.save(self.model.state_dict(), Config.generated_model_path + 'azki_bert.pt')
+        torch.save(self.model.state_dict(),
+                        Config.generated_model_path +
+                        Config.generated_model_name + '-'
+                        time.strftime("%Y%m%d-%H%M%S") + 
+                        Config.generated_model_format
+                   )
         
         print(color.BOLD + color.BLUE + f"model saved in {Config.generated_model_path + 'azki_bert.pt'}"+ color.END)
 
