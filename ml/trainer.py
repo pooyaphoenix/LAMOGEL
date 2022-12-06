@@ -8,6 +8,7 @@ from transformers import AdamW
 
 
 class CustomDataset(torch.utils.data.Dataset):
+
     def __init__(self, encodings):
         self.encodings = encodings
     def __getitem__(self, idx):
@@ -15,8 +16,8 @@ class CustomDataset(torch.utils.data.Dataset):
     def __len__(self):
         return len(self.encodings.input_ids)
 
-
 class MlmTrainer():
+
     def __init__(self) -> None:
         print(color.BOLD + color.BLUE + 'Loading Model and Tokenizer ...'+ color.END)
         self.tokenizer = BertTokenizer.from_pretrained(Config.tokenizer)
@@ -29,11 +30,17 @@ class MlmTrainer():
             for line in f:
                     corpus.append(line)
 
-        inputs = self.tokenizer(corpus, return_tensors='pt', max_length=100, truncation=True, padding='max_length')
+        inputs = self.tokenizer(corpus, 
+                                return_tensors='pt',
+                                max_length=Config.tokenizer_max_length,
+                                truncation=True,
+                                padding='max_length'
+                                )
+
         inputs['labels'] = inputs.input_ids.detach().clone()
         rand = torch.rand(inputs.input_ids.shape)
         # create mask array
-        mask_arr = (rand < 0.15) * (inputs.input_ids != 101) * \
+        mask_arr = (rand < Config.mask_confidence) * (inputs.input_ids != 101) * \
                 (inputs.input_ids != 102) * (inputs.input_ids != 0)
         selection = []
         for i in range(inputs.input_ids.shape[0]):
@@ -47,8 +54,11 @@ class MlmTrainer():
 
 
     def trainer(self, device, data_loader):
-        optim = AdamW(self.model.parameters(), lr=5e-5)
-        epochs = 1
+        print(color.BOLD + color.BLUE + 'Trainer started ...'+ color.END)
+        optim = AdamW(self.model.parameters(), 
+                      lr=Config.lr
+                      )
+        epochs = Config.epochs
         for epoch in range(epochs):
             # setup loop with TQDM and dataloader
             loop = tqdm(data_loader, leave=True)
@@ -75,18 +85,18 @@ class MlmTrainer():
     def start(self):
 
         dataset = CustomDataset(self.make_input())
-        data_loader = torch.utils.data.DataLoader(dataset, batch_size=4, shuffle=True)
+        data_loader = torch.utils.data.DataLoader(dataset, batch_size=Config.batch_size, shuffle=True)
 
         device = torch.device('cuda') if torch.cuda.is_available() else torch.device('cpu')
-        print(f"device on {device}")
+        print(color.BOLD + color.BLUE + f"model running on {device}"+ color.END)
         # and move our model over to the selected device
         self.model.to(device)
         # activate training mode
         self.model.train()
         self.trainer(device, data_loader)
-        torch.save(self.model.state_dict(), 'azki_bert.pt')
+        torch.save(self.model.state_dict(), Config.generated_model_path + 'azki_bert.pt')
         
-        return 'successful.'
+        print(color.BOLD + color.BLUE + f"model saved in {Config.generated_model_path + 'azki_bert.pt'}"+ color.END)
 
 
 

@@ -20,9 +20,18 @@ class Config():
     #pre-processing
     remove_number: bool = False
 
-    #model
+    #model and tokenizzer
     pre_trained_model: str = "HooshvareLab/bert-base-parsbert-uncased"
     tokenizer: str = "HooshvareLab/bert-base-parsbert-uncased"
+    
+    tokenizer_max_length = 100                                                 
+    epochs: int = 1
+    batch_size: int = 4
+    mask_confidence: float = 0.15
+    lr = 5e-5
+    generated_model_path: str = "ml/models/"
+
+
     #database
     db: dict = {
         
