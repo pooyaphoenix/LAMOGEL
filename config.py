@@ -14,7 +14,7 @@ class Config():
     pre_training_file_name:str = "pre_training_corpus.txt"
 
     #split
-    split_range: int = 0.99         # 1 means all data to fine-tuning and 0 means all data to pre-training (pre-training data using to mlm model)
+    split_range: float = 0.995         # 1 means all data to fine-tuning and 0 means all data to pre-training (pre-training data using to mlm model)
     shuffle_status: bool = True     # shuffle returned fine-tuning and pre-training data
 
     #pre-processing
