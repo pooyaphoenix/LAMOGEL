@@ -1,2 +1,4 @@
 sqlmodel
 mysqlclient
+transformers
+torch

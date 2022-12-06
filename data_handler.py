@@ -14,27 +14,27 @@ class DataHandler():
                 pre_trainin_data: list = []
     ):
 
-        with open(Config.fine_tuning_curpus_path + "fine_tuning_corpus.txt", "w", encoding='utf-8') as txt_file:
+        with open(Config.fine_tuning_curpus_path + Config.fine_tuning_file_name, "w", encoding='utf-8') as txt_file:
             for line in fine_tuning_data:
                 txt_file.write(" ".join(line) + "\n") 
-            print('fine_tuning_corpus.txt saved in corpus.')
+            print(f'{Config.fine_tuning_file_name} saved in corpus.')
 
-        with open(Config.pre_training_curpus_path + "pre_training_corpus.txt", "w", encoding='utf-8') as txt_file:
+        with open(Config.pre_training_curpus_path + Config.pre_training_file_name, "w", encoding='utf-8') as txt_file:
             for line in pre_trainin_data:
                 txt_file.write(" ".join(line) + "\n") 
-            print('pre_training_corpus.txt saved in corpus.')
+            print(f'{Config.pre_training_file_name} saved in corpus.')
 
 
     def split_data(
             self, 
             split_range: int = 0.1, 
             shuffle_status: bool = True
-        ) -> list:
+        ) -> dict:
         data: list = self.chat_session.get_all()
-       
 
         if shuffle_status:
             shuffle(data)
+
         split_idx: int = int(math.ceil((split_range*len(data))))
         fine_tuning_data:list = data [:split_idx]
         pre_trainin_data:list = data [split_idx:]
@@ -48,7 +48,6 @@ class DataHandler():
             "p_len":len(pre_trainin_data)
         }
         print(color.BOLD + color.BLUE + 'files details'+ color.END)
-
         print(f"total records: {len(data)} \nfine_tuning records:{len(fine_tuning_data)}  \npre_traning records:{len(pre_trainin_data)}")
         return result_dict
 
