@@ -27,8 +27,8 @@ class DataHandler():
 
     def split_data(
             self, 
-            split_range: int = 0.1, 
-            shuffle_status: bool = True
+            split_range: int = Config.split_range, 
+            shuffle_status: bool = Config.shuffle_status
         ) -> dict:
         data: list = self.chat_session.get_all()
 

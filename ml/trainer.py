@@ -94,14 +94,15 @@ class MlmTrainer():
         # activate training mode
         self.model.train()
         self.trainer(device, data_loader)
-        torch.save(self.model.state_dict(),
-                        Config.generated_model_path +
-                        Config.generated_model_name + '-'
+        model_file:str = (Config.generated_model_path +
+                        Config.generated_model_name +'-'+
                         time.strftime("%Y%m%d-%H%M%S") + 
-                        Config.generated_model_format
-                   )
+                        Config.generated_model_format)
+                        
+        torch.save(self.model.state_dict(),
+                   model_file)
         
-        print(color.BOLD + color.BLUE + f"model saved in {Config.generated_model_path + 'azki_bert.pt'}"+ color.END)
+        print(color.BOLD + color.BLUE + f"model saved in {model_file}"+ color.END)
 
 
 

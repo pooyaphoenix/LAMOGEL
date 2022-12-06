@@ -25,8 +25,8 @@ class Config():
     tokenizer: str = "HooshvareLab/bert-base-parsbert-uncased"
     
     tokenizer_max_length = 100                                                 
-    epochs: int = 1
-    batch_size: int = 4
+    epochs: int = 2
+    batch_size: int = 8
     mask_confidence: float = 0.15
     lr = 5e-5
     generated_model_path: str = "ml/models/"
