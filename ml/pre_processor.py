@@ -1,56 +1,56 @@
 import re
 from config import Config
-from data_handler import DataHandler
-from kernel.color import color
+from core.tools import tls
+
 
 class Preprocessor():
-
-    def __init__(self) -> None:
-        pass
     def deEmojify(
-                slef,
-                text:str =''
-        ) -> str:
+        slef,
+        text: str
+    ) -> str:
 
-        regrex_pattern = re.compile(pattern = "["
-            u"\U0001F600-\U0001F64F"  # emoticons
-            u"\U0001F300-\U0001F5FF"  # symbols & pictographs
-            u"\U0001F680-\U0001F6FF"  # transport & map symbols
-            u"\U0001F1E0-\U0001F1FF"  # flags (iOS)
-                            "]+", flags = re.UNICODE)
-        text = regrex_pattern.sub(r'',text)
-        if Config.remove_number:
+        regrex_pattern = re.compile(pattern="["
+                                    u"\U0001F600-\U0001F64F"  # emoticons
+                                    u"\U0001F300-\U0001F5FF"  # symbols & pictographs
+                                    u"\U0001F680-\U0001F6FF"  # transport & map symbols
+                                    u"\U0001F1E0-\U0001F1FF"  # flags (iOS)
+                                    "]+", flags=re.UNICODE)
+        text = regrex_pattern.sub(r'', text)
+        if Config.REMOVE_NUMBER:
             text = re.sub(r'\d+', '', text)
         return text
 
     def prepare_data(self):
-        
-        p_text :list = []
-        f_text :list = []
-        print(color.BOLD + color.BLUE + 'corpus pre-processing...'+ color.END)
+        pre_trainin_text: list = []
+        fine_tuning_text: list = []
 
-        #read files
-        with open(Config.pre_training_curpus_path + Config.pre_training_file_name, encoding='utf8') as f:
+        tls.log('Corpus pre-processing...', bold=True)
+        corpus_fine_tuning_full_path: str = Config.FINE_TUNING_CORPUS_PATH + \
+            Config.FINE_TUNING_FILENAME
+
+        corpus_pre_training_full_path: str = Config.PRE_TRAINING_CORPUS_PATH + \
+            Config.PRE_TRAINING_FILENAME
+
+        # read files
+        with open(corpus_pre_training_full_path, encoding='utf8') as f:
             for line in f:
                 if type(line) is str:
-                    p_text.append(self.deEmojify(line.strip()))
+                    pre_trainin_text.append(self.deEmojify(line.strip()))
 
-        with open(Config.fine_tuning_curpus_path + Config.fine_tuning_file_name, encoding='utf8') as f:
+        with open(corpus_fine_tuning_full_path, encoding='utf8') as f:
             for line in f:
                 if type(line) is str:
-                    f_text.append(self.deEmojify(line.strip()))
+                    fine_tuning_text.append(self.deEmojify(line.strip()))
 
+        with open(corpus_fine_tuning_full_path, "w", encoding='utf-8') as txt_file:
+            for line in fine_tuning_text:
+                txt_file.write("".join(line) + "\n")
 
-        with open(Config.fine_tuning_curpus_path + Config.fine_tuning_file_name, "w", encoding='utf-8') as txt_file:
-            for line in f_text:
-                txt_file.write("".join(line) + "\n") 
-            print(f'pre-processed {Config.fine_tuning_file_name} saved in corpus.')
+        tls.log(f'Pre-processed {Config.FINE_TUNING_FILENAME} saved in corpus.')
 
-        #write processed files
-        with open(Config.pre_training_curpus_path + Config.pre_training_file_name, "w", encoding='utf-8') as txt_file:
-            for line in p_text:
-                txt_file.write("".join(line) + "\n") 
-            print(f'pre-processed {Config.pre_training_file_name} saved in corpus.')
-
-
-        
+        # write processed files
+        with open(corpus_pre_training_full_path, "w", encoding='utf-8') as txt_file:
+            for line in pre_trainin_text:
+                txt_file.write("".join(line) + "\n")
+                
+        tls.log(f'Pre-processed {Config.PRE_TRAINING_FILENAME} saved in corpus.')

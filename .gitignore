@@ -1,7 +1,4 @@
+__pycache__
 .vscode
 venv
-test.py
-__pycache__
-ml/corpus/fine_tuning/*
-ml/corpus/pre_training/*
-ml/models/*
+data

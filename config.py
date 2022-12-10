@@ -6,36 +6,38 @@ class Config():
 
     """
 
-    # curpus 
-    fine_tuning_curpus_path: str = "ml/corpus/fine_tuning/"
-    pre_training_curpus_path: str = "ml/corpus/pre_training/"
+    DEBUG_MODE: bool=True
 
-    fine_tuning_file_name:str = "fine_tuning_corpus.txt"
-    pre_training_file_name:str = "pre_training_corpus.txt"
+    # curpus 
+    FINE_TUNING_CORPUS_PATH: str = "data/corpus/fine_tuning/"
+    PRE_TRAINING_CORPUS_PATH: str = "data/corpus/pre_training/"
+
+    FINE_TUNING_FILENAME:str = "fine_tuning_corpus.txt"
+    PRE_TRAINING_FILENAME:str = "pre_training_corpus.txt"
 
     #split
-    split_range: float = 0.995         # 1 means all data to fine-tuning and 0 means all data to pre-training (pre-training data using to mlm model)
-    shuffle_status: bool = True     # shuffle returned fine-tuning and pre-training data
+    SPLIT_RANGE: float = 0.995      # 1 means all data to fine-tuning and 0 means all data to pre-training (pre-training data using to mlm model)
+    IS_SHUFFLE: bool = True     # shuffle returned fine-tuning and pre-training data
 
     #pre-processing
-    remove_number: bool = False
+    REMOVE_NUMBER: bool = False
 
     #model and tokenizzer
-    pre_trained_model: str = "HooshvareLab/bert-base-parsbert-uncased"
-    tokenizer: str = "HooshvareLab/bert-base-parsbert-uncased"
+    PRE_TRAINED_MODEL: str = "HooshvareLab/bert-base-parsbert-uncased"
+    TOKENIZER_MODEL: str = "HooshvareLab/bert-base-parsbert-uncased"
     
-    tokenizer_max_length = 100                                                 
-    epochs: int = 2
-    batch_size: int = 8
-    mask_confidence: float = 0.15
-    lr = 5e-5
-    generated_model_path: str = "ml/models/"
-    generated_model_name: str = "azki"
-    generated_model_format: str = ".pt"
+    TOKENIZER_MAX_LENGTH = 100                                                 
+    EPOCHS: int = 1
+    BATCH_SIZE: int = 8
+    MASK_CONFIDENCE: float = 0.15
+    LR: float = 5e-5
+    GENERATED_MODEL_PATH: str = "data/models/"
+    GENERATED_MODEL_NAME: str = "azki"
+    GENERATED_MODEL_FORMAT: str = ".pt"
 
 
     #database
-    db: dict = {
+    DB: dict = {
         
         'USER': 'pooya',
         'PASSWORD': 'kFBfBmBXRMBA',
