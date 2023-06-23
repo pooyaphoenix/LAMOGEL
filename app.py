@@ -5,6 +5,9 @@ from ml.hugging_face import HuggingFace
 
 if __name__== "__main__":
 
+    #LAMOGEL: Language Model Generation Lifecycle 📝
+
+
     # split data between fine-tuning and pre-training data
     DataHandler().split_data()
 

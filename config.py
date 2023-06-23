@@ -3,6 +3,8 @@
 #
 class Config():
     """
+    #LAMOGEL: Language Model Generation Lifecycle
+
     All you need to customize lifecycle values is to set bottom variables values
     After the variables change you should run app.py
 
@@ -25,8 +27,8 @@ class Config():
     REMOVE_NUMBER: bool = False
 
     #model and tokenizzer
-    PRE_TRAINED_MODEL: str = "HooshvareLab/bert-base-parsbert-uncased"
-    TOKENIZER_MODEL: str = "HooshvareLab/bert-base-parsbert-uncased"
+    PRE_TRAINED_MODEL: str = "bert-base-uncased"
+    TOKENIZER_MODEL: str = "bert-base-uncased"
     
     TOKENIZER_MAX_LENGTH = 100                                                 
     EPOCHS: int = 1
@@ -34,7 +36,7 @@ class Config():
     MASK_CONFIDENCE: float = 0.15
     LR: float = 5e-5
     GENERATED_MODEL_PATH: str = "data/models/"
-    GENERATED_MODEL_NAME: str = "azki"
+    GENERATED_MODEL_NAME: str = "LAMOGEL"
     GENERATED_MODEL_FORMAT: str = ".pt"
 
 
