@@ -41,5 +41,5 @@ Data directory was deleted from this repository. if your task has data for fine-
     FINE_TUNING_FILENAME:str = "fine_tuning_corpus.txt"
     PRE_TRAINING_FILENAME:str = "pre_training_corpus.txt"
   ## Contact us  
-   email pooyachavoshi@gmail.com.com .  
+   email pooyachavoshi@gmail.com.  
 
