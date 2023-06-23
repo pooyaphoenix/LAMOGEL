@@ -1,8 +1,10 @@
 
+
+#
 class Config():
     """
     All you need to customize lifecycle values is to set bottom variables values
-    After the variables change you should run main.py
+    After the variables change you should run app.py
 
     """
 
@@ -39,11 +41,11 @@ class Config():
     #database
     DB: dict = {
         
-        'USER': 'pooya',
-        'PASSWORD': 'kFBfBmBXRMBA',
-        'ADDRESS': '172.21.30.21',
-        'PORT': '30799',
-        'DB_NAME': 'dev_data'
+        'USER': 'USER',
+        'PASSWORD': 'PASSWORD',
+        'ADDRESS': 'ADDRESS',
+        'PORT': 'PORT',
+        'DB_NAME': 'DB_NAME'
     }
 
 
